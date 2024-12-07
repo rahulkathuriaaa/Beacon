@@ -5,13 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser, faXmark } from "@fortawesome/free-solid-svg-icons";
 import {Button} from "@/components/ui/button";
 import {Copy, ExternalLink, Loader2,} from "lucide-react";
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
 
 import { useEffect } from "react";
-// Assuming these components are imported from elsewhere
-// import { WalletButton } from "./WalletButton";
-// import { ProfileModal } from "./ProfileModal";
-// import { MobileMenu } from "./MobileMenu";
-// import Logo from "./path-to-logo";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import * as yup from "yup";
+import {copyToClipBoard, shortenAddress} from "@/lib/utils";
+
+
+
 
 export const links = [
     {
@@ -38,6 +40,8 @@ const Navbar: React.FC = () => {
     const [accounts, setAccounts] = useState<string[]>([]);
     const [networkData, setNetworkData] = useState<any>();
     const [balance, setBalance] = useState<string>("");
+    const [selectedChainId, setSelectedChainId] = useState<string>("");
+
 
 
 
@@ -122,16 +126,23 @@ const [isExtensionInstalled, setIsExtensionInstalled] =
         updateAccounts().then();
         setLoading(false);
     };
+    const switchToChain = async () => {
+        if (selectedChainId && supraProvider) {
+            await supraProvider.changeNetwork({chainId:selectedChainId});
+            await getNetworkData()
+        }
+    };
+
 
 
     return (
-        <div className="w-full flex flex-col gap-3 h-full py-[1.1rem] px-5 md:px-14 lg:px-16 bg-[#030202] sticky top-0 z-30">
+        <div className="w-full flex flex-col gap-3 h-full py-[1.1rem] px-5 md:px-14 lg:px-16 sticky top-0 z-30">
             <div className="w-full flex items-center justify-between">
                 <Link href="/"> 
                     <div className="flex flex-row gap-2 items-center">
                         {/* <img src={Logo} alt="logo" />  Uncomment and provide Logo */}
                         <h5 className="text-[#F57328] font-['Stoke'] text-[1.1rem]">
-                            TicketMynt
+                        Beacon
                         </h5>
                     </div>
                 </Link>
@@ -146,7 +157,7 @@ const [isExtensionInstalled, setIsExtensionInstalled] =
                                     // location.pathname === link.url
                                     false
                                         ? "text-[#F57328]"
-                                        : "text-[#fdfcfdc4]"
+                                        : "text-black"
                                 }`}
                             >
                                 {link.text}
@@ -159,6 +170,12 @@ const [isExtensionInstalled, setIsExtensionInstalled] =
                 <div className="hidden lg:flex flex-row gap-6 items-center justify-between">
                     
                 <div>
+                                  
+
+{isExtensionInstalled && !accounts.length && (
+
+                            <CardContent>
+                                <div>
                                     <div className="inline-block">
                                         <Button onClick={connectWallet} disabled={loading}>
                                             {loading && (
@@ -167,6 +184,50 @@ const [isExtensionInstalled, setIsExtensionInstalled] =
                                             Connect Wallet{" "}
                                         </Button>
                                     </div>
+                                </div>
+                            </CardContent>
+                    )}
+
+
+{accounts.length > 0 && (
+                        <Card className=" m-auto">
+                            <CardContent className="grid gap-4">
+                             
+                                    <div className="flex text-center w-full mt-2">
+                                    <Button
+                                        className="rounded-tr-none rounded-br-none w-full"
+                                        variant="secondary"
+                                        size={"sm"}
+                                    >
+                                        {shortenAddress(accounts[0])}
+                                    </Button>
+                                    <Button
+                                        onClick={() => {
+                                            copyToClipBoard(accounts[0]);
+                                        }}
+                                        className="border-l-1 rounded-tl-none rounded-bl-none"
+                                        color={"primary"}
+                                        size={"sm"}
+                                    >
+                                        Copy
+                                    </Button>
+                                    <Button
+                                    size={"sm"}
+                                    className="w-full"
+                                    variant="destructive"
+                                    onClick={disconnectWallet}
+                                >
+                                    Disconnect
+                                </Button>
+
+
+                                </div>
+
+                            </CardContent>
+
+                        </Card>
+                    )}
+
                                 </div>
                     
 
