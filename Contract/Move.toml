@@ -1,0 +1,15 @@
+[package]
+name = "eth"
+version = "1.0.0"
+authors = []
+
+[addresses]
+MoonCoin2 = "0xaabea11dd43a745458af9d9976380ab6af754e02e81b33eadbe0d94056cd90d1"
+
+[dev-addresses]
+
+[dependencies]
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework/", rev = "eb0144a39ada521d8dee01c9dbd601853d383fb3" }
+
+
+[dev-dependencies]

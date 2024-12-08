@@ -1,6 +1,51 @@
 import React from 'react'
+import {
+  HexString,
+  SupraAccount,
+  SupraClient,
+  BCS,
+  TxnBuilderTypes,
+} from "../../node_modules/supra-l1-sdk/dist/node/index";
 
 const QuestDetails = () => {
+
+  let txn = async() => { 
+    let senderAccount = new SupraAccount();
+    const moduleName = "moon_coin";
+    const moduleAddr = "0xaabea11dd43a745458af9d9976380ab6af754e02e81b33eadbe0d94056cd90d1";
+    
+
+    let supraClient =  await SupraClient.init(
+        "http://localhost:3000/"
+        //"https://rpc-testnet.supra.com/"
+    );
+    
+    if ((await supraClient.isAccountExists(senderAccount.address())) == false) {
+        console.log(
+        "Funding Sender With Faucet: ",
+        // To Fund Account With Test Supra Tokens
+        await supraClient.fundAccountWithFaucet(senderAccount.address())
+        );
+    }
+
+    let supraCoinTransferRawTransaction = await supraClient.createRawTxObject(
+        senderAccount.address(),
+        (
+        await supraClient.getAccountInfo(senderAccount.address())
+        ).sequence_number,
+        moduleAddr,
+        moduleName,
+        "create",
+        [],
+        []
+    );
+
+    let supraCoinTransferSignedTransaction = SupraClient.createSignedTransaction(
+        senderAccount,
+        supraCoinTransferRawTransaction
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Title */}
