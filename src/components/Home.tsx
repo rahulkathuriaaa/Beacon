@@ -43,10 +43,15 @@ export default function Home() {
           Earn tokens for doing onchain actions
         </h1>
         <div className="flex justify-center gap-4">
-          <button className="bg-black text-white px-4 py-2 rounded-full flex items-center gap-2">
+            <button className="bg-black text-white px-4 py-2 rounded-full flex items-center gap-2">
+            <Link href = "/Deploy">
+
             Deploy Beacon
+            </Link>
+
             <PlusIcon className="w-5 h-5" />
           </button>
+         
           <button className="border border-gray-300 px-4 py-2 rounded-full flex items-center gap-2">
             Discover Beacon
             <ChevronRightIcon className="w-5 h-5" />

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-
+import Link from 'next/link'
 const trendingItems = [
   {
     rank: 1,
@@ -84,11 +84,14 @@ export function Trending() {
                   className="rounded-full"
                 />
                 <div>
-                  <div className="font-medium">{item.name}</div>
+                    <Link href="/Quest">
+                    <div className="font-medium">{item.name}</div>
                   <div className="text-sm text-gray-500">
                     <span>{item.boost}</span>
                     <span className="ml-2">{item.boostAmount}</span>
                   </div>
+                    </Link>
+                  
                 </div>
               </div>
               <div className="mt-2 bg-gray-200 rounded-full h-2">
