@@ -18,7 +18,7 @@ declare global {
 export default function SupraDAppPage() {
 
     return (
-        <main className="py-24 text-center">
+        <main className="text-center">
             <Home/>
            
         </main>

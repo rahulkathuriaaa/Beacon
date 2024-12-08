@@ -120,7 +120,7 @@ const Home = () => {
   }, []);
 
   return (
-    <main className="py-24 text-center">
+    <main className="text-center">
       <div className="text-center relative z-10">
         <h1 className="text-4xl font-extrabold  ">StarKey Wallet</h1>
 

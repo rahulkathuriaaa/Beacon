@@ -8,7 +8,6 @@ import {Copy, ExternalLink, Loader2,} from "lucide-react";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
 
 import { useEffect } from "react";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import * as yup from "yup";
 import {copyToClipBoard, shortenAddress} from "@/lib/utils";
 
@@ -136,12 +135,12 @@ const [isExtensionInstalled, setIsExtensionInstalled] =
 
 
     return (
-        <div className="w-full flex flex-col gap-3 h-full py-[1.1rem] px-5 md:px-14 lg:px-16 sticky top-0 z-30">
+        <div className="w-full flex flex-col gap-3 h-full py-[1.1rem] px-5 md:px-14 lg:px-16 top-0 z-30">
             <div className="w-full flex items-center justify-between">
                 <Link href="/"> 
                     <div className="flex flex-row gap-2 items-center">
                         {/* <img src={Logo} alt="logo" />  Uncomment and provide Logo */}
-                        <h5 className="text-[#F57328] font-['Stoke'] text-[1.1rem]">
+                        <h5 className="text-black font-['Stoke'] text-[1.3rem]">
                         Beacon
                         </h5>
                     </div>
